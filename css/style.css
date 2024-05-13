@@ -59,7 +59,7 @@ body{
     align-items: center;
     width:fit-content;
     gap:4vh;
-    margin: 0 3vw;
+    margin: 0 4%;
 }
 .right_stuff.hide{
     display: none;
@@ -78,7 +78,7 @@ body{
     font-size:1.5em;
 }
 .modif_TVA input{
-    width: 100%;
+    width: 8vw;
     border: none;
     outline: none;
     background-color: #00000015;
