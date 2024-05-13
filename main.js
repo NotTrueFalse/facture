@@ -20,7 +20,7 @@ let isQuantities = true;
 let mainForm = document.querySelector(".main form");
 mainForm.querySelectorAll("input").forEach(c => {
     c.addEventListener("keypress",(e)=>{//prevent enter from submitting
-    if (e.code == '13') {
+    if (e.wich == '13') {
       event.preventDefault();
     }
 });
@@ -71,6 +71,7 @@ SIRET_AUTO.forEach(c => {
             },
             showCancelButton: true,
             confirmButtonText: "rechercher",
+            cancelButtonText: "annuler",
             showLoaderOnConfirm: true,
         }).then(async (result) => {
             if (result.isConfirmed) {
