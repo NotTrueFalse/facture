@@ -1,7 +1,5 @@
-window.isMobile = function() {
-  return window.innerWidth/window.innerHeight<=1;
-}();
-if(window.isMobile){document.write("service disponible unquiment sur ordinateur.");}
+document.addEventListener("DOMContentLoaded", (event) => {
+if(window.innerWidth/window.innerHeight<=1){document.write("service disponible unquiment sur ordinateur.");}
 else{
 (function() {
 /*EXPLICIT ALL RIGHTS RESERVED 2024-2025
@@ -519,3 +517,4 @@ quantitebtn.addEventListener("click",function(e){
 });
 })();
 }
+});
