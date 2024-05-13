@@ -1,5 +1,5 @@
 window.isMobile = function() {
-  return ( ( window.innerWidth <= 800 ) && ( window.innerHeight <= 600 ) );
+  return window.innerWidth/window.innerHeight<=1;
 }();
 if(window.isMobile){document.write("service disponible unquiment sur ordinateur.");}
 else{
