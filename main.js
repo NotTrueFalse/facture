@@ -23,7 +23,7 @@ let isQuantities = true;
 let mainForm = document.querySelector(".main form");
 mainForm.querySelectorAll("input").forEach(c => {
     c.addEventListener("keypress",(e)=>{//prevent enter from submitting
-    if (e.wich == '13') {
+    if (e.code == '13') {
       event.preventDefault();
     }
 });
@@ -74,7 +74,6 @@ SIRET_AUTO.forEach(c => {
             },
             showCancelButton: true,
             confirmButtonText: "rechercher",
-            cancelButtonText: "annuler",
             showLoaderOnConfirm: true,
         }).then(async (result) => {
             if (result.isConfirmed) {
@@ -364,7 +363,7 @@ form.addEventListener("submit", function(e) {
         let width = doc.internal.pageSize.getWidth();
         let height = doc.internal.pageSize.getHeight();
         let pageHeight = width / ratio;
-        doc.addImage(img, 'PNG', 0, 0, width, pageHeight);
+        doc.addImage(img, 'PNG', 0, 0, width, height);
         doc.save("facture.pdf");
         // document.body.appendChild(img);
         document.querySelector(".gen").classList.remove("hide");
