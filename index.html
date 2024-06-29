@@ -1,36 +1,35 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#404040">
-  <title>Explicit - Facture</title>
-  <meta name="title" content="Explicit - Facture">
-  <meta name="description" content="réalisez des factures simplement grâce a cet outils créé par Explicit.">
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://facture.explicitcrea.com">
-  <meta property="og:title" content="Explicit - Facture">
-  <meta property="og:description" content="réalisez des factures simplement grâce a cet outils créé par Explicit.">
-  <meta property="og:image" content="https://imgur.com/7OFxckL.png">
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://facture.explicitcrea.com">
-  <meta property="twitter:title" content="Explicit - Facture">
-  <meta property="twitter:description" content="réalisez des factures simplement grâce a cet outils créé par Explicit.">
-  <meta property="twitter:image" content="https://imgur.com/7OFxckL.png">
-    <link rel="stylesheet" href="css/style.css?v=1">
-    <script src="
-    https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js
-    "></script>
-    <link href="
-    https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css
-    " rel="stylesheet">
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
-    </head>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#404040">
+    <title>Explicit - Facture</title>
+    <meta name="title" content="Explicit - Facture">
+    <meta name="description" content="réalisez des factures simplement grâce a cet outils créé par Explicit.">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://facture.explicitcrea.com">
+    <meta property="og:title" content="Explicit - Facture">
+    <meta property="og:description" content="réalisez des factures simplement grâce a cet outils créé par Explicit.">
+    <meta property="og:image" content="https://imgur.com/7OFxckL.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://facture.explicitcrea.com">
+    <meta property="twitter:title" content="Explicit - Facture">
+    <meta property="twitter:description" content="réalisez des factures simplement grâce a cet outils créé par Explicit.">
+    <meta property="twitter:image" content="https://imgur.com/7OFxckL.png">
+      <link rel="stylesheet" href="css/style.css?v=1">
+      <script src="
+      https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js
+      "></script>
+      <link href="
+      https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css
+      " rel="stylesheet">
+      <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+      <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+      </head>
 <body>
     <div class="changeable">
         <button id="Devis" class="changer">Devis</button>
@@ -46,40 +45,46 @@
                 </div>
                 <span class="big" contenteditable="true" id="allowed_size">Facture N°1</span>
             </div>
-            <button type="button" class="SIRET_AUTO" id="societe_auto">Remplissage automatique via le SIRET/SIREN/RNA</button>
-            <div class="societe">
-                <div>
-                    <input type="text" name="SOCIETE_nom" placeholder="Nom / société" minlength="2">
-                </div>
-                <div>
-                    <input type="text" name="SOCIETE_addresse" placeholder="Adresse">
-                </div>
-                <div>
-                    <input type="text" name="SOCIETE_codePostal" placeholder="Code postal">
-                    <input type="text" name="SOCIETE_ville" placeholder="Ville">
-                </div>
-                <div>
-                    <span contenteditable="true" class='siretsp'>Siret:</span>
-                    <div class="removable">
-                        <input type="text" name="SOCIETE_siret" placeholder="123 456 789 12345">
+            <div class="aligner">
+                <div class="info-block"> 
+                    <button type="button" class="SIRET_AUTO" id="societe_auto">Remplissage automatique via le SIRET/SIREN/RNA</button>
+                    <div class="societe">
+                        <div>
+                            <input type="text" name="SOCIETE_nom" placeholder="Nom / société" minlength="2">
+                        </div>
+                        <div>
+                            <input type="text" name="SOCIETE_addresse" placeholder="Adresse">
+                        </div>
+                        <div>
+                            <input type="text" name="SOCIETE_codePostal" placeholder="Code postal">
+                            <input type="text" name="SOCIETE_ville" placeholder="Ville">
+                        </div>
+                        <div>
+                            <span contenteditable="true" class='siretsp'>Siret:</span>
+                            <div class="removable">
+                                <input type="text" name="SOCIETE_siret" placeholder="123 456 789 12345">
+                            </div>
+                        </div>
+                        <div>
+                        <span contenteditable="true">N° TVA:</span>
+                            <div class="removable">
+                                <input type="text" name="SOCIETE_tva" placeholder="FR123456789012">
+                            </div>
+                        </div>
+                        <div>
+                        <span contenteditable="true">Tél:</span>
+                            <div class="removable">
+                                <input type="text" name="SOCIETE_tel" placeholder="0612345678">
+                            </div>
+                        </div>
+                        <div class="addable"></div>
                     </div>
                 </div>
-                <div>
-                <span contenteditable="true">N° TVA:</span>
-                    <div class="removable">
-                        <input type="text" name="SOCIETE_tva" placeholder="FR123456789012">
-                    </div>
+                <div class="info-block">
+                    <button type="button" class="SIRET_AUTO" id="client_auto">Remplissage automatique via le SIRET/SIREN/RNA</button>
+                    <div class="client"></div>
                 </div>
-                <div>
-                <span contenteditable="true">Tél:</span>
-                    <div class="removable">
-                        <input type="text" name="SOCIETE_tel" placeholder="0612345678">
-                    </div>
-                </div>
-                <div class="addable"></div>
             </div>
-            <button type="button" class="SIRET_AUTO" id="client_auto">Remplissage automatique via le SIRET/SIREN/RNA</button>
-            <div class="client"></div>
             <div class="tableau_d facture">
                 <table class="date_table three">
                     <tbody>
