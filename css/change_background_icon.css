@@ -1,0 +1,141 @@
+.background_carrousel {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+    gap: 1vw;
+}
+
+.background_carrousel img{
+    transition: all .2s ease-in-out;
+}
+
+.background_carrousel button.prev,.background_carrousel button.next{
+    margin: 0 0;
+    background-color: transparent;
+    font-weight: bolder;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-family: 'Lexend';
+    font-size: 2em;
+    transition: color .2s ease-in-out;
+}
+.background_carrousel button.prev:hover, .background_carrousel button.next:hover{
+    color: #d2d2d2;
+}
+
+.background_carrousel.hide *[alt='bg'], .background_carrousel *[alt='bg']:not(.active){
+    display:none;
+}
+
+.changeBackground.hide,.changeBackground:not(.active){
+    display: none;
+}
+
+.background_carrousel div[alt='bg']{
+    background: #fff;
+    position: relative;
+    cursor: pointer;
+    border-radius: 12px;
+    aspect-ratio: 9/14;
+}
+
+.changeBackground input[type="file"] {
+    display: None;
+}
+
+.changeBackground {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px dashed #6e6d6d;
+    cursor: pointer;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    width: fit-content;
+}
+
+.background_carrousel img, .background_carrousel *[alt='bg']{
+    width:70%;
+    height: 40vh;
+}
+.changeBackground{
+    width:60%;
+}
+.changeBackground:hover,
+.changeBackground.dragover {
+    /* ,form .file:hover*/
+    border: 1px dashed #000;
+    background-color: #eee;
+}
+
+.changeBackground label {
+    color: #313131;
+    text-align: center;
+    font-family: 'Lexend';
+    width: 6vw;
+    font-size: 0.75em;
+    background: none;
+}
+.changeBackground img {
+    margin: 1vh .5vw;
+    transition: scale .2s ease-in-out;
+    width: 60%;
+    height: auto;
+}
+
+.changeBackground.dragover img,
+.changeBackground:hover img {
+    /*form .file:hover img*/
+    transform: scale(1.01);
+}
+
+.changeBackground.dragover label,
+.changeBackground:hover label{
+    color: #000;
+}
+
+.icon_carousel {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.icon_carousel:not(.bigger) img {
+    max-width: 13vw;
+    object-fit: contain;
+}
+
+.icon_carousel button.prev_icon,
+.icon_carousel button.next_icon {
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0 10px;
+    transition: background .2s ease-in-out;
+}
+
+.icon_carousel button.prev_icon:hover,
+.icon_carousel button.next_icon:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.icon_carousel button.upload_icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.icon_carousel button.upload_icon img {
+    max-width: 80px;
+    max-height: 80px;
+}

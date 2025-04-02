@@ -1,0 +1,38 @@
+.waiter_screen{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000fe;
+    color: #fff;
+    font-size: 2em;
+    z-index: 99999999;
+}
+.waiter_screen.loading{
+    display:flex;
+}
+.waiter_screen .loader{
+    width:25vw;
+    height:3vh;
+    border-radius: 12px;
+    background-color: #000000aa;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    border: 1px solid black;
+}
+.waiter_screen .loader .bar{
+    width: 0%;
+    height: 100%;
+    background-color: #65ff6db6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: width 1s ease-in-out;
+}

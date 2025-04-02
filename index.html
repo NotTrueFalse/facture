@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#404040">
+    <title>Explicit - Facture</title>
+    <meta name="title" content="Explicit - Facture">
+    <meta name="description" content="réalisez des factures simplement grâce a cet outils créé par Explicit.">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://facture.explicitcrea.com">
+    <meta property="og:title" content="Explicit - Facture">
+    <meta property="og:description" content="réalisez des factures simplement grâce a cet outils créé par Explicit.">
+    <meta property="og:image" content="https://imgur.com/7OFxckL.png">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://facture.explicitcrea.com">
+    <meta property="twitter:title" content="Explicit - Facture">
+    <meta property="twitter:description" content="réalisez des factures simplement grâce a cet outils créé par Explicit.">
+    <meta property="twitter:image" content="https://imgur.com/7OFxckL.png">
+    <!-- styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/utils.css">
+    <link rel="stylesheet" href="css/change_background_icon.css">
+    <link rel="stylesheet" href="css/color_picker.css">
+    <link rel="stylesheet" href="css/right_stuff.css">
+    <link rel="stylesheet" href="css/print.css">
+    <link rel="stylesheet" href="css/custom_span.css">
+    <link rel="stylesheet" href="css/waiter_screen.css">
+    <!-- scripts/libs -->
+      <script src="
+      https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js
+      "></script>
+      <link href="
+      https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css
+      " rel="stylesheet">
+      <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>    
+      <script src="https://cdn.jsdelivr.net/npm/jspdf@latest/dist/jspdf.umd.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2/dist/umd/popper.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
+      <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+      </head>
+<body>
+    <main>
+        <div class="utils-wrapper">
+            <div class="utils">
+                <div class="tuto">
+                    <strong>Bienvenue sur notre service gratuit de génération de factures en ligne !</strong>
+                    <p>Créez facilement des factures professionnelles en quelques étapes simples.</p>
+                    <ul>
+                        <li>Remplissez vos informations</li>
+                        <li>Personnalisez votre modèle</li>
+                        <li>Générez et téléchargez votre facture</li>
+                    </ul>
+                    <p></p>
+                </div>
+                <div class="background_carrousel">
+                    <button class="prev"><</button>
+                    <div width="1654px" height="2339px" alt="bg" class="active" data-index="0"></div>
+                    <img src="img/FactureExplciit_V01_BG.png" alt="bg" data-index="1">
+                    <img src="img/FactureExplciit_V02_BG.png" alt="bg" data-index="2">
+                    <img src="img/FactureExplciit_V03_BG.png" alt="bg" data-index="3">
+                    <div class="changeBackground" data-index="4">
+                        <input type="file" name="background"  accept="image/*"/>
+                        <img src="img/upload.png" alt="background"/>
+                        <label>Déplacez votre fond ici!</label>
+                    </div>
+                    <button class="next">></button>
+                </div>
+                <div class="color_picker">
+                    <div class="color active" data-color="#404040"></div>
+                    <div class="color" data-color="#f0f0f0"></div>
+                    <div class="color" data-color="#17d57c"></div>
+                    <div class="color" data-color="#6c3de5"></div>
+                </div>
+                <label id="color_indicator">Vous êtes en mode: normal</label>
+            </div>
+            <button id="Devis" class="changer">Devis</button>
+        </div>
+        <form action method="POST" enctype="multipart/form-data">
+            <div class="head">
+                <div class="icon_carousel">
+                    <button class="prev_icon" type="button">&lt;</button>
+                    <img src="img/logo_1.png" alt="default_icon" class="active" data-index="0">
+                    <img src="img/logo_2.png" alt="icon" data-index="1" style="display: none;">
+                    <img src="img/logo_3.png" alt="icon" data-index="2" style="display: none;">
+                    <img src="img/logo_4.png" alt="icon" data-index="3" style="display: none;">
+                    <button class="upload_icon" data-index="4" style="display: none;">
+                        <img src="img/upload.png" alt="upload_icon">
+                    </button>
+                    <button class="next_icon" type="button">&gt;</button>
+                </div>
+                <span class="big" contenteditable="true" id="allowed_size">Facture N°1</span>
+            </div>
+            <div class="aligner">
+                <div class="info-block"> 
+                    <button type="button" class="SIRET_AUTO" id="societe_auto">Remplissage automatique via le SIRET/SIREN/RNA</button>
+                    <div class="societe">
+                        <div>
+                            <input type="text" name="SOCIETE_nom" placeholder="Nom / société" minlength="2">
+                        </div>
+                        <div>
+                            <input type="text" name="SOCIETE_addresse" placeholder="Adresse">
+                        </div>
+                        <div>
+                            <input type="text" name="SOCIETE_codePostal" placeholder="Code postal">
+                            <input type="text" name="SOCIETE_ville" placeholder="Ville">
+                        </div>
+                        <div>
+                            <span contenteditable="true" class='siretsp'>Siret:</span>
+                            <div class="removable">
+                                <input type="text" name="SOCIETE_siret" placeholder="123 456 789 12345">
+                            </div>
+                        </div>
+                        <div>
+                        <span contenteditable="true">N° TVA:</span>
+                            <div class="removable">
+                                <input type="text" name="SOCIETE_tva" placeholder="FR123456789012">
+                            </div>
+                        </div>
+                        <div>
+                        <span contenteditable="true">Tél:</span>
+                            <div class="removable">
+                                <input type="text" name="SOCIETE_tel" placeholder="0612345678">
+                            </div>
+                        </div>
+                        <div class="addable"></div>
+                    </div>
+                </div>
+                <div class="info-block">
+                    <button type="button" class="SIRET_AUTO" id="client_auto">Remplissage automatique via le SIRET/SIREN/RNA</button>
+                    <div class="client"></div>
+                </div>
+            </div>
+            <div class="tableau_d facture">
+                <table class="date_table three">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input placeholder="En-tête" value="Date de facture" name="facturation_text" id="allowed_size"></td>
+                            <td>
+                                <div class="removable table">
+                                    <input placeholder="Contenu" value="NOWVAL" name='facturation' type="date"/>
+                                </div> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input placeholder="En-tête" value="Date de livraison" name='livraison_text' id="allowed_size"></td>
+                            <td>
+                                <div class="removable table">
+                                    <input placeholder="Contenu" value="NOWVAL" type="date" name="livraison">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input placeholder="En-tête" value="Echéance de paiement" name='echeance_text' id="allowed_size">
+                            </td>
+                            <td>
+                                <div class="removable table">
+                                    <input placeholder="Contenu" value="AFTERVAL" type="date" name="echeance"/>
+                                </div> 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="addable"></div>
+            </div>
+            <div class="tableau_d devis" style="display:none">
+                <table class="date_table one">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input placeholder="En-tête" value="Date du devis" name='devis_text' id="allowed_size">
+                            </td>
+                            <td>
+                                <div class="removable table">
+                                    <input placeholder="Contenu" value="AFTERVAL" type="date" name="devis_date"/>
+                                </div> 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="addable"></div>
+            </div>
+            <div class="tableau_objets">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th class="quantite">Quantité</th>
+                            <th class="prix_unit">Prix unitaire HT</th>
+                            <th class="total_ht">Total HT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="removable row">
+                            <td style='padding:0;'>
+                                <div class="lAlign">
+                                    <input class="presta_title" type="text" placeholder="TITRE PRESTATION" />
+                                    <input type="text" placeholder="Description de prestation" />
+                                </div>
+                            </td>
+                            <td class="quantite">
+                                <input type="text" name="obj_quantite[]" value="1" class="quantite" required>
+                            </td>
+                            <td class="money">
+                                <div class="sub_td">
+                                    <input type="text" name="obj_prix[]" value="1" required>
+                                    <p class="devise">€</p>
+                                </div>
+                            </td>
+                            <td class="total_ht">
+                                <div class="sub_td">
+                                    <span class="total">0,01</span>
+                                    <p class="devise">€</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="addable"></div>
+            </div>
+            <div class="footer">
+                <div class="complementaire">
+                    <span id="footer_text" data-placeholder="Information complémentaires (IBAN, BIC...)" contenteditable=""></span>
+                </div>
+                <div class="fake_table">
+                    <div class="left">
+                        <label>TOTAL HT</label>
+                        <label id="tva_title">TVA (20,00%)</label>
+                        <label style='font-weight:900;'>Total TTC</label>
+                    </div>
+                    <div class='right'>
+                        <div>
+                            <span data-name="footer_total">0.00</span>
+                            <p class="devise">€</p>
+                        </div>
+                        <div>
+                            <span data-name="footer_tva">0.00</span>
+                            <p class="devise">€</p>
+                        </div>
+                        <div>
+                            <span data-name="footer_total_ttc">0.00</span>
+                            <p class="devise">€</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span class="bottomtxt" contentEditable="true">En cas de retard, une pénalité au taux annuel de 5 % sera appliquée, à laquelle s'ajoutera une indemnité forfaitaire pour frais de recouvrement de 40 €</span>
+            <button class="gen">Téléchargez</button>
+        </form>
+        <div class="right_stuff">
+            <div class="modif_TVA">
+                <label for="tva_perc">TVA (en %)</label>
+                <input id="tva_perc" type="text" placeholder="% TVA" value="20">
+            </div>
+            <button class="toggle_quantity" data-active="true">Désactiver unitaire</button>
+            <div class="devise_bloc">
+                <span>Devise :</span>
+                <select class="devise">
+                    <option value="€" selected>€</option>
+                    <option value="$">$</option>
+                    <option value="£">£</option>
+                    <option value="CHF">CHF</option>
+                    <option value="¥">¥</option>
+                    <option value="₹">₹</option>
+                    <option value="₽">₽</option>
+                </select>
+            </div>
+        </div>
+    </main>
+    <div class="waiter_screen">
+        <div class="loader"><div class="bar"></div></div>
+        <p>Génération de la facture en cours...</p>
+    </div>
+<script src="js/pre_load.js"></script>
+</body>
+</html>
