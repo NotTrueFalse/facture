@@ -29,12 +29,7 @@
     <link rel="stylesheet" href="css/custom_span.css">
     <link rel="stylesheet" href="css/waiter_screen.css">
     <!-- scripts/libs -->
-      <script src="
-      https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js
-      "></script>
-      <link href="
-      https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css
-      " rel="stylesheet">
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
       <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>    
       <script src="https://cdn.jsdelivr.net/npm/jspdf@latest/dist/jspdf.umd.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2/dist/umd/popper.min.js"></script>
@@ -86,7 +81,7 @@
                     <img src="img/logo_2.png" alt="icon" data-index="1" style="display: none;">
                     <img src="img/logo_3.png" alt="icon" data-index="2" style="display: none;">
                     <img src="img/logo_4.png" alt="icon" data-index="3" style="display: none;">
-                    <button class="upload_icon" data-index="4" style="display: none;">
+                    <button class="upload_icon" type="button" data-index="4" style="display: none;">
                         <img src="img/upload.png" alt="upload_icon">
                     </button>
                     <button class="next_icon" type="button">&gt;</button>
@@ -199,7 +194,7 @@
                             <td style='padding:0;'>
                                 <div class="lAlign">
                                     <input class="presta_title" type="text" placeholder="TITRE PRESTATION" />
-                                    <input type="text" placeholder="Description de prestation" />
+                                    <textarea placeholder="Description de prestation"></textarea>
                                 </div>
                             </td>
                             <td class="quantite">

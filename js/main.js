@@ -1,14 +1,35 @@
 let TVA = 20;//20% TVA
 let isQuantities = true;
 let mainForm = document.querySelector("main form");
-mainForm.querySelectorAll("input").forEach(c => {
-    c.addEventListener("keypress", (e) => {//prevent enter from submitting
-        if (e.code == '13') {
-            e.preventDefault();
-            return false;
-        }
-    });
+
+//touche entrée autorisé
+mainForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    return false;
 });
+
+function autoResizeTextarea(textarea) {
+    textarea.style.height = "auto";
+    const maxHeight = parseFloat(window.getComputedStyle(textarea).maxHeight);
+    const hasMaxHeight = !Number.isNaN(maxHeight) && maxHeight > 0;
+    const nextHeight = hasMaxHeight ? Math.min(textarea.scrollHeight, maxHeight) : textarea.scrollHeight;
+    textarea.style.height = `${nextHeight}px`;
+    textarea.style.overflowY = hasMaxHeight && textarea.scrollHeight > maxHeight ? "auto" : "hidden";
+}
+
+mainForm.addEventListener("input", (e) => {
+    if (e.target.matches(".tableau_objets .lAlign textarea")) {
+        autoResizeTextarea(e.target);
+    }
+});
+
+mainForm.addEventListener("focusin", (e) => {
+    if (e.target.matches(".tableau_objets .lAlign textarea")) {
+        autoResizeTextarea(e.target);
+    }
+});
+
+mainForm.querySelectorAll(".tableau_objets .lAlign textarea").forEach(autoResizeTextarea);
 
 document.querySelectorAll("input[value='NOWVAL']").forEach(date_input => {
     date_input.value = _now;
@@ -56,32 +77,46 @@ SIRET_AUTO.forEach(siret_auto_button => {
             showCancelButton: true,
             confirmButtonText: "rechercher",
             showLoaderOnConfirm: true,
-        });
-        if (!value)return;
-        let SIRET = value.strip();
-        let req = await fetch("https://suggestions.pappers.fr/v2/?q=" + SIRET + "&cibles=siren,siret");
-        let resp = await req.json();
-        let isRNA = false;
-        if (resp["resultats_siren"].length == 0) {
-            if (resp["resultats_siret"].length == 0) {
-                rna_req = await fetch("https://siva-integ1.cegedim.cloud/apim/api-asso/api/rna/" + SIRET,
-                    {
+            preConfirm: async (inputValue) => {
+                const siret = (inputValue || "").trim();
+                if (!siret) {
+                    Swal.showValidationMessage("Veuillez entrer une valeur.");
+                    return false;
+                }
+
+                try {
+                    const req = await fetch("https://suggestions.pappers.fr/v2/?q=" + siret + "&cibles=siren,siret");
+                    const resp = await req.json();
+
+                    if (resp["resultats_siren"].length > 0) {
+                        return { siret: siret, data: resp["resultats_siren"][0], isRNA: false };
+                    }
+
+                    if (resp["resultats_siret"].length > 0) {
+                        return { siret: siret, data: resp["resultats_siret"][0], isRNA: false };
+                    }
+
+                    const rna_req = await fetch("https://siva-integ1.cegedim.cloud/apim/api-asso/api/rna/" + siret, {
                         mode: "no-cors"
                     });
-                rna_resp = await rna_req.text();
-                if (rna_resp.includes("Error")) {
-                    alert("Aucun résultat trouvé");
-                    return;
-                } else {
-                    isRNA = true;
-                    data = JSON.parse(rna_resp);
+                    const rna_resp = await rna_req.text();
+                    if (rna_resp.includes("Error")) {
+                        Swal.showValidationMessage("Aucun résultat trouvé.");
+                        return false;
+                    }
+
+                    return { siret: siret, data: JSON.parse(rna_resp), isRNA: true };
+                } catch (error) {
+                    Swal.showValidationMessage("Erreur pendant la recherche.");
+                    return false;
                 }
-            } else {
-                data = resp["resultats_siret"][0];
-            }
-        } else {
-            data = resp["resultats_siren"][0];
-        }
+            },
+            allowOutsideClick: () => !Swal.isLoading(),
+        });
+        if (!value)return;
+        let SIRET = value.siret;
+        let data = value.data;
+        let isRNA = value.isRNA;
         let prefix = me.id.split("_")[0].toLocaleUpperCase();
         let societe = document.querySelector(`input[name='${prefix}_nom']`);
         let addresse = document.querySelector(`input[name='${prefix}_addresse']`);
@@ -448,6 +483,7 @@ function formatItemsTable(applyFormatting) {
         itemsTable.classList.add("bigger");
         const inputSelectors = [
             ".lAlign input",
+            ".lAlign textarea",
             ".removable.row input",
             "td.quantite input",
             "td.sub_td input"
@@ -510,7 +546,7 @@ function formatFooterElements(applyFormatting) {
 }
 
 function convertInputsToSpans(container) {
-    container.querySelectorAll("input").forEach(input => {
+    container.querySelectorAll("input, textarea").forEach(input => {
         createPrintableSpan(input);
     });
 }
@@ -524,8 +560,13 @@ function createPrintableSpan(inputElement) {
     const printableSpan = document.createElement("span");
     printableSpan.contentEditable = "true";
     printableSpan.className = "printable";
+    if (inputElement.tagName === "TEXTAREA") {
+        printableSpan.classList.add("multiline");
+        printableSpan.innerHTML = (inputElement.value || "").replace(/\n/g, "<br>");
+    } else {
+        printableSpan.textContent = inputElement.value || "";
+    }
     printableSpan.dataset.for = uniqueId;
-    printableSpan.textContent = inputElement.value || "";
     inputElement.dataset.printableId = uniqueId;
     inputElement.style.display = "none";
     inputElement.parentNode.insertBefore(printableSpan, inputElement.nextSibling);
@@ -537,6 +578,10 @@ function restoreInputsFromSpans(container) {
         const input = window.inputsState.get(uniqueId);
         if (input) {
             input.style.display = "";
+            delete input.dataset.printableId;
+            if (input.tagName === "TEXTAREA") {
+                autoResizeTextarea(input);
+            }
         }
         span.remove();
     });

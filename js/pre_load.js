@@ -23,7 +23,7 @@ String.prototype.strip = function () {
 }
 const num_reg = /^[0-9]+$/;
 const _now = new Date().toISOString().split('T')[0];
-const _after = new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0];
+const _after = new Date(new Date().setMonth(new Date().getMonth() + 1 % 12)).toISOString().split('T')[0];
 const A4_FORMAT = [1654, 2339];//A4 format in pixels 200dpi
 const random_id = () => { return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15); }
 

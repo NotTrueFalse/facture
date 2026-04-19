@@ -2,3 +2,10 @@ span[data-placeholder].placeholder {
     color: #999;
     font-style: italic;
 }
+
+.tableau_objets .printable.multiline {
+    white-space: pre-wrap !important;
+    word-break: break-word;
+    text-align: left;
+    width: 100%;
+}
